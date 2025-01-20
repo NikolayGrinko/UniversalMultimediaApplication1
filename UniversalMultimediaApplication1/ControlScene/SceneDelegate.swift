@@ -9,15 +9,22 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    var window: UIWindow?
+    static var window: UIWindow?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene)
-        window?.makeKeyAndVisible()
-        window?.backgroundColor = .systemBackground
-        window?.rootViewController = DemoViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        SceneDelegate.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        SceneDelegate.window?.windowScene = windowScene
+        //window?.rootViewController = TabBarBabyProfile()
+        SceneDelegate.window?.rootViewController = AnimeLaunchScreenVC()
+        SceneDelegate.window?.makeKeyAndVisible()
+//        guard let windowScene = (scene as? UIWindowScene) else { return }
+//        window = UIWindow(windowScene: windowScene)
+//        window?.makeKeyAndVisible()
+//        window?.backgroundColor = .systemBackground
+//        window?.rootViewController = DemoViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
