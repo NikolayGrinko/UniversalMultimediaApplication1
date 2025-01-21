@@ -70,7 +70,6 @@ class HomeViewController: UIViewController {
 
                 // Настраиваем цвет кнопки назад
         navigationController?.navigationBar.tintColor = .systemOrange
-        
         // Выставляем кнопку назад
         navigationItem.titleView?.tintColor = .white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .done, target: self, action: #selector(didTapButton))
@@ -99,11 +98,11 @@ class HomeViewController: UIViewController {
         let vc = TabBarControllerOne()
         
         // Оборачиваем его в UINavigationController
-        let navigationController = UINavigationController(rootViewController: vc)
-        navigationController.modalPresentationStyle = .fullScreen // Для полноэкранного отображения
-        present(navigationController, animated: true, completion: nil)
-//        vc.modalPresentationStyle = .custom
-//        present(vc, animated: true)
+//        let navigationController = UINavigationController(rootViewController: vc)
+//        navigationController.modalPresentationStyle = .fullScreen // Для полноэкранного отображения
+//        present(navigationController, animated: true, completion: nil)
+        vc.modalPresentationStyle = .custom
+        present(vc, animated: true)
     }
     
     @objc private func tapNextBarTwoButton() {

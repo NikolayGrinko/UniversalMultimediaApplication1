@@ -5,7 +5,6 @@
 //  Created by Николай Гринько on 21.01.2025.
 //
 
-
 import UIKit
 
 class TabBarControllerThree: UITabBarController {
@@ -25,8 +24,6 @@ class TabBarControllerThree: UITabBarController {
         let navigationController = UINavigationController(rootViewController: vc)
         navigationController.modalPresentationStyle = .fullScreen // Для полноэкранного отображения
         present(navigationController, animated: true, completion: nil)
-//        vc.modalPresentationStyle = .custom
-//        present(vc, animated: true)
     }
     
     private func generateTabBar() {
