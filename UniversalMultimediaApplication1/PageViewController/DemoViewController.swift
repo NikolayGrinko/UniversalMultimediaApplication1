@@ -24,39 +24,17 @@ class DemoViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setup()
         style()
         layout()
+        gradientView()
+    }
+    
+    private func gradientView() {
         view.applyGradient(colors: [.customBlue, .customGreen],
                                    startPoint: CGPoint(x: 0.0, y: 0.0),
                                    endPoint: CGPoint(x: 1.0, y: 1.0))
     }
-    
-    private func setupGradientBackground() {
-            // Создаем слой с градиентом
-            let gradientLayer = CAGradientLayer()
-            
-            // Указываем цвета градиента
-            gradientLayer.colors = [
-                UIColor.systemIndigo.cgColor,
-                UIColor.systemGreen.cgColor
-            ]
-            
-            // Указываем направление градиента (сверху вниз)
-            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0) // Верхний центр
-            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)   // Нижний центр
-            
-            // Настраиваем размеры слоя
-            gradientLayer.frame = view.bounds
-            
-            // Добавляем слой градиента на корневую view
-            view.layer.insertSublayer(gradientLayer, at: 0)
-            
-            // Обеспечиваем автоматическое обновление размера градиента при изменении размеров экрана
-            gradientLayer.masksToBounds = true
-            view.layer.layoutIfNeeded()
-        }
     
 }
 
@@ -69,15 +47,15 @@ extension DemoViewController {
         
         pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
 
-        let page1 = OnboardingViewController(imageName: "logo",
+        let page1 = OnboardingViewController(imageName: "apple",
                                              titleText: "Welcome",
-                                             subtitleText: "To the Swift Arcade. Your place for learning Swift.")
-        let page2 = OnboardingViewController(imageName: "swift",
-                                             titleText: "Learn",
-                                             subtitleText: "Start your career in iOS development.")
-        let page3 = OnboardingViewController(imageName: "level-up",
-                                             titleText: "Have fun",
-                                             subtitleText: "Level Up and have fun building mobile apps.")
+                                             subtitleText: "В этом мультимедийном приложении я осуществлю свою мечту и выйду за рамки Apple.")
+        let page2 = OnboardingViewController(imageName: "photo",
+                                             titleText: "Photo & Video",
+                                             subtitleText: "Будет добавлены фото с большим разрешением и созданием фото через ChatGPT & Шедеврум.")
+        let page3 = OnboardingViewController(imageName: "nasa",
+                                             titleText: "Nasa",
+                                             subtitleText: "Будет добавлены фото и видео с сайта Nasa.")
         let page4 = LoginRegistrationVC()
         
         pages.append(page1)
@@ -190,9 +168,9 @@ extension DemoViewController: UIPageViewControllerDelegate {
     }
     
     private func hideControls() {
-        pageControlBottomAnchor?.constant = -80
-        skipButtonTopAnchor?.constant = -80
-        nextButtonTopAnchor?.constant = -80
+        pageControlBottomAnchor?.constant = -100
+        skipButtonTopAnchor?.constant = -100
+        nextButtonTopAnchor?.constant = -100
     }
 
     private func showControls() {
