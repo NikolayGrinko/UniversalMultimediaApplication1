@@ -46,10 +46,12 @@ extension OnboardingViewController {
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont.preferredFont(forTextStyle: .title1)
+        titleLabel.textColor = .white
         
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = UIFont.preferredFont(forTextStyle: .body)
         subtitleLabel.textAlignment = .center
+        subtitleLabel.textColor = .white
         
         subtitleLabel.numberOfLines = 0
     }
