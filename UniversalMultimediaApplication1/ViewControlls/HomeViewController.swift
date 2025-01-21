@@ -15,7 +15,7 @@ class HomeViewController: UIViewController {
         button.backgroundColor = #colorLiteral(red: 0.2824099586, green: 0.2401617251, blue: 0.5460324755, alpha: 1)
         button.addShadow()
         button.frame = CGRect(x: 16, y: 130, width: 350, height: 100)
-        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tapNextBarOneButton), for: .touchUpInside)
         return button
     }()
     
@@ -24,7 +24,7 @@ class HomeViewController: UIViewController {
         button.setTitle("Это кнопка номер два", for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.2824099586, green: 0.2401617251, blue: 0.5460324755, alpha: 1)
         button.frame = CGRect(x: 16, y: 280, width: 350, height: 100)
-        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tapNextBarTwoButton), for: .touchUpInside)
         return button
     }()
     
@@ -33,7 +33,7 @@ class HomeViewController: UIViewController {
         button.setTitle("Это кнопка номер три", for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.2824099586, green: 0.2401617251, blue: 0.5460324755, alpha: 1)
         button.frame = CGRect(x: 16, y: 430, width: 350, height: 100)
-        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tapNextBarThreeButton), for: .touchUpInside)
         return button
     }()
     
@@ -42,7 +42,7 @@ class HomeViewController: UIViewController {
         button.setTitle("Это кнопка номер четыре", for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.2824099586, green: 0.2401617251, blue: 0.5460324755, alpha: 1)
         button.frame = CGRect(x: 16, y: 580, width: 350, height: 100)
-        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tapNextBarFourButton), for: .touchUpInside)
         return button
     }()
     
@@ -85,8 +85,58 @@ class HomeViewController: UIViewController {
     
     @objc private func didTapButton() {
         let vc = LoginRegistrationVC()
-        vc.modalPresentationStyle = .custom
-        present(vc, animated: true)
+       
+        // Оборачиваем его в UINavigationController
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.modalPresentationStyle = .fullScreen // Для полноэкранного отображения
+        present(navigationController, animated: true, completion: nil)
+//        vc.modalPresentationStyle = .custom
+//        present(vc, animated: true)
+    }
+    
+    
+    @objc private func tapNextBarOneButton() {
+        let vc = TabBarControllerOne()
+        
+        // Оборачиваем его в UINavigationController
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.modalPresentationStyle = .fullScreen // Для полноэкранного отображения
+        present(navigationController, animated: true, completion: nil)
+//        vc.modalPresentationStyle = .custom
+//        present(vc, animated: true)
+    }
+    
+    @objc private func tapNextBarTwoButton() {
+        let vc = TabBarControllerTwo()
+
+        // Оборачиваем его в UINavigationController
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.modalPresentationStyle = .fullScreen // Для полноэкранного отображения
+        present(navigationController, animated: true, completion: nil)
+//        vc.modalPresentationStyle = .custom
+//        present(vc, animated: true)
+    }
+    
+    @objc private func tapNextBarThreeButton() {
+        let vc = TabBarControllerThree()
+        
+        // Оборачиваем его в UINavigationController
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.modalPresentationStyle = .fullScreen // Для полноэкранного отображения
+        present(navigationController, animated: true, completion: nil)
+//        vc.modalPresentationStyle = .custom
+//        present(vc, animated: true)
+    }
+    
+    @objc private func tapNextBarFourButton() {
+        let vc = TabBarControllerFour()
+        
+        // Оборачиваем его в UINavigationController
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.modalPresentationStyle = .fullScreen // Для полноэкранного отображения
+        present(navigationController, animated: true, completion: nil)
+//        vc.modalPresentationStyle = .custom
+//        present(vc, animated: true)
     }
     
 }
