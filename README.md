@@ -10,3 +10,5 @@
 <img width="331" alt="Снимок экрана 2025-01-20 в 10 51 06" src="https://github.com/user-attachments/assets/0ff92da5-95cb-4ae1-8faf-c199e9a60740" />
 <img width="331" alt="Снимок экрана 2025-01-20 в 10 51 32" src="https://github.com/user-attachments/assets/e4e822f2-4a5b-418f-93ab-40a0b6af8975" />
 <img width="331" alt="Снимок экрана 2025-01-20 в 10 52 15" src="https://github.com/user-attachments/assets/c287b5ca-e1d2-48ec-9e98-32fc8003a870" />
+![Снимок экрана 2025-01-21 в 16 56 19](https://github.com/user-attachments/assets/3cb4920c-b4f7-4792-aca2-0ed0cda76d42)
+![Снимок экрана 2025-01-21 в 16 56 28](https://github.com/user-attachments/assets/3f74345c-3b84-4e8c-9e55-e2d8a6960a17)
