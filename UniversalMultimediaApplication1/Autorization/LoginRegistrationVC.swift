@@ -108,10 +108,16 @@ class LoginRegistrationVC: UIViewController, UITextFieldDelegate {
     }()
     
     @objc private func nextTapVC() {
-        let vc = RandomVC()
-//        present(vc, animated: true)
-        vc.modalPresentationStyle = .custom
-        present(vc, animated: true)
+        let vc = HomeViewController()
+        
+        // Оборачиваем его в UINavigationController
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.modalPresentationStyle = .fullScreen // Для полноэкранного отображения
+        present(navigationController, animated: true, completion: nil)
+        
+        //        present(vc, animated: true)
+        //        vc.modalPresentationStyle = .custom
+        //        present(vc, animated: true)
     }
     
     private let termsCheckBox: UIButton = {

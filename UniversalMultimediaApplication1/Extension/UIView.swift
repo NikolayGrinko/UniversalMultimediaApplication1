@@ -22,6 +22,17 @@ extension UIView {
         // Добавляем новый слой градиента
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
+    
+    func addShadow() {
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath.init(rect: bounds).cgPath
+        layer.shadowColor = UIColor.black.cgColor
+        layer.cornerRadius = 10
+        layer.shadowOpacity = 0.5
+        layer.shadowOffset = CGSize(width: 10, height: 10)
+        layer.shouldRasterize = true
+    }
+    
 }
 
 // MARK: - Расширение UIColor для пользовательских цветов
@@ -30,3 +41,8 @@ extension UIColor {
     static let customGreen = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
     
 }
+
+
+
+
+
