@@ -35,7 +35,7 @@ class TabBarControllerOne: UITabBarController {
                 image: UIImage(systemName: "house.fill")
             ),
             generateVC(
-                viewController: PersonVC_One(),
+                viewController: SearchVC_One(),
                 title: "Personal Info",
                 image: UIImage(systemName: "person.fill")
             ),
@@ -78,7 +78,7 @@ class TabBarControllerOne: UITabBarController {
         tabBar.itemWidth = width / 5
         tabBar.itemPositioning = .centered
         
-        roundLayer.fillColor = UIColor.mainWhite.cgColor
+        roundLayer.fillColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
         
         tabBar.tintColor = .tabBarItemAccent
         tabBar.unselectedItemTintColor = .tabBarItemLight

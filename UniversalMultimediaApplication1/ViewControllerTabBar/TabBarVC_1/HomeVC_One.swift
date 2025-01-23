@@ -7,12 +7,22 @@
 
 import UIKit
 
+enum Sections: Int {
+    
+    case ImageMeme = 0
+    
+   
+}
 
 class HomeVC_One: UIViewController {
     
+   // let models: [DataClass] = []
+    
+    private var titles: [MemModel] = []
+    
     var collectionView: UICollectionView! = nil
     
-    let buttonLeft: UIButton = {
+    lazy var buttonLeft: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "arrow.left"), for: .normal)
         button.frame = CGRect(x: 10, y: 50, width: 40, height: 35)
@@ -24,8 +34,9 @@ class HomeVC_One: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
         view.addSubview(buttonLeft)
-        ApiReq_1TB.shared.downloadGet()
+        //ApiReq_1TB.downloadGet()
         view.backgroundColor = #colorLiteral(red: 0.5458797216, green: 0.1337981224, blue: 0.4389412999, alpha: 1)
+        
         if let tabBar = self.tabBarController?.tabBar {
             // Убираем фон
             let appearance = UITabBarAppearance()
@@ -43,11 +54,6 @@ class HomeVC_One: UIViewController {
     
     @objc private func didTapButton() {
         let vc = HomeViewController()
-        
-        // Оборачиваем его в UINavigationController
-//        let navigationController = UINavigationController(rootViewController: vc)
-//        navigationController.modalPresentationStyle = .fullScreen // Для полноэкранного отображения
-//        present(navigationController, animated: true, completion: nil)
         vc.modalPresentationStyle = .custom
         present(vc, animated: true)
     }
@@ -58,7 +64,7 @@ class HomeVC_One: UIViewController {
         collectionView.backgroundColor = #colorLiteral(red: 0.5458797216, green: 0.1337981224, blue: 0.4389412999, alpha: 1)
         view.addSubview(collectionView)
         
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(CellsMemTB_1.self, forCellWithReuseIdentifier: CellsMemTB_1.identifier)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -82,6 +88,8 @@ class HomeVC_One: UIViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+   
+    
     
 }
 
@@ -89,13 +97,36 @@ class HomeVC_One: UIViewController {
 extension HomeVC_One: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .green
-        cell.layer.borderWidth = 1
+        //let model = models[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellsMemTB_1.identifier, for: indexPath) as! CellsMemTB_1
+        
+//        switch indexPath.section {
+//            
+//        case Sections.ImageMeme.rawValue:
+//            
+//            ApiReq_1TB.shared.downloadGet { result in
+//                switch result {
+//                case .success(let titles):
+//                    
+//                    cell.configure(with: titles)
+//                case .failure(let error):
+//                    print(error)
+//                    print(error.localizedDescription)
+//                }
+//            }
+//                    DispatchQueue.main.async { [weak self] in
+//                        self?.collectionView.reloadData()
+//                    }
+//            // cell.backgroundColor = .green
+//            cell.layer.borderWidth = 1
+//            return cell
+//        default:
+//            break
+        //}
         return cell
     }
 }
