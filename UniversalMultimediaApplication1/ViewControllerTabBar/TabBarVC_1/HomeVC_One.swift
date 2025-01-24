@@ -7,16 +7,16 @@
 
 import UIKit
 
-enum Sections: Int {
-    
-    case ImageMeme = 0
-    
-   
-}
+//enum Sections: Int {
+//    
+//    case ImageMeme = 0
+//    
+//   
+//}
 
 class HomeVC_One: UIViewController {
     
-   // let models: [DataClass] = []
+    let models: [DataClass] = []
     
     private var titles: [MemModel] = []
     
@@ -34,7 +34,7 @@ class HomeVC_One: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
         view.addSubview(buttonLeft)
-        //ApiReq_1TB.downloadGet()
+        ApiReq_1TB.shared.downloadGet()
         view.backgroundColor = #colorLiteral(red: 0.5458797216, green: 0.1337981224, blue: 0.4389412999, alpha: 1)
         
         if let tabBar = self.tabBarController?.tabBar {
@@ -97,36 +97,15 @@ class HomeVC_One: UIViewController {
 extension HomeVC_One: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return models.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //let model = models[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellsMemTB_1.identifier, for: indexPath) as! CellsMemTB_1
         
-//        switch indexPath.section {
-//            
-//        case Sections.ImageMeme.rawValue:
-//            
-//            ApiReq_1TB.shared.downloadGet { result in
-//                switch result {
-//                case .success(let titles):
-//                    
-//                    cell.configure(with: titles)
-//                case .failure(let error):
-//                    print(error)
-//                    print(error.localizedDescription)
-//                }
-//            }
-//                    DispatchQueue.main.async { [weak self] in
-//                        self?.collectionView.reloadData()
-//                    }
-//            // cell.backgroundColor = .green
-//            cell.layer.borderWidth = 1
-//            return cell
-//        default:
-//            break
-        //}
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellsMemTB_1.identifier, for: indexPath) as! CellsMemTB_1
+        cell.backgroundColor = .green
+        
         return cell
     }
 }

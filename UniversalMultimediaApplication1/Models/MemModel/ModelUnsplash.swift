@@ -21,10 +21,10 @@ struct UnsplashModelElement: Codable {
 
 struct Urls: Codable {
     let raw, full, regular, small: String
-    let thumb, smallS3: String
+    
 
     enum CodingKeys: String, CodingKey {
-        case raw, full, regular, small, thumb
+        case raw, full, regular, small
     }
 }
 

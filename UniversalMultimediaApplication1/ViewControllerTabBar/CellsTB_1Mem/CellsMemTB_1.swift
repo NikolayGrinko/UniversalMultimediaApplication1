@@ -39,6 +39,8 @@ class CellsMemTB_1: UICollectionViewCell {
         super.init(frame: frame)
         contentView.addSubview(imageViewCell)
         contentView.addSubview(textDescrLabel)
+        
+        setupConstraints() 
     }
     
     required init?(coder: NSCoder) {
