@@ -36,13 +36,13 @@ class TabBarControllerOne: UITabBarController {
             ),
             generateVC(
                 viewController: SearchVC_One(),
-                title: "Personal Info",
-                image: UIImage(systemName: "person.fill")
+                title: "Search Photo",
+                image: UIImage(systemName: "camera.fill")
             ),
             generateVC(
                 viewController: SettingsVC_One(),
-                title: "Settings",
-                image: UIImage(systemName: "slider.horizontal.3")
+                title: "Шедеврум",
+                image: UIImage(systemName: "bubble.circle.fill")
             )
         ]
     }

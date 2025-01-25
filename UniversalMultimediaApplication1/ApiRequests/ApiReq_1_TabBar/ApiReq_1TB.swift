@@ -11,7 +11,7 @@ public class ApiReq_1TB {
     
   static let shared = ApiReq_1TB()
     
-    func downloadGet(completion: @escaping (Result) -> Void) {
+    func downloadGet() {
         
         guard let url =  URL(string:"https://api.imgflip.com/get_memes") else { return }
         let request = URLRequest(url: url)

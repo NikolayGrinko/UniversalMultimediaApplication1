@@ -6,12 +6,24 @@
 //
 
 import UIKit
+import WebKit
 
 class SettingsVC_One: UIViewController {
 
+    private let webView: WKWebView = {
+        let webView = WKWebView()
+        return webView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        gradientView()
+        view.backgroundColor = .white
+        webView.frame = CGRect(x: 0, y: 60, width: view.frame.size.width, height: view.frame.size.height)
+        view.addSubview(webView)
+        guard let url = URL(string: "https://shedevrum.ai/") else { return }
+        webView.load(URLRequest(url: url))
+        webView.allowsBackForwardNavigationGestures = true
+       // gradientView()
     }
     private func gradientView() {
         view.applyGradient(colors: [.customBlue, .customGreen],
