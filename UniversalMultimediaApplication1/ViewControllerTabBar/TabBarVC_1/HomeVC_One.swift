@@ -1,40 +1,50 @@
 //
-//  HomeViewController.swift
+//  HomeVC_One.swift
 //  UniversalMultimediaApplication1
 //
-//  Created by Николай Гринько on 21.01.2025.
+//  Created by Николай Гринько on 29.01.2025.
 //
 
 import UIKit
+import Alamofire
 
-//enum Sections: Int {
-//    
-//    case ImageMeme = 0
-//    
-//   
-//}
 
-class HomeVC_One: UIViewController {
+class HomeVC_One: UIViewController, UICollectionViewDataSource {
     
-    let models: [DataClass] = []
+    private let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.backgroundColor = .white
+        cv.register(CellsMemTB_1.self, forCellWithReuseIdentifier: CellsMemTB_1.identifier)
+        return cv
+    }()
     
-    private var titles: [MemModel] = []
+    let key = "c5c4dd9d7c706bf5ae3e98cf7691ec75"
+    let perPage = "365"
+    let text = "Автомобили"
     
-    var collectionView: UICollectionView! = nil
+    var photos = NSMutableOrderedSet()
+    
+    let countItem: CGFloat = 2
+    let sectionInsert = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     
     lazy var buttonLeft: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "arrow.left"), for: .normal)
         button.frame = CGRect(x: 10, y: 50, width: 40, height: 35)
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
-    return button
+        return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCollectionView()
+        
         view.addSubview(buttonLeft)
-        ApiReq_1TB.shared.downloadGet()
         view.backgroundColor = #colorLiteral(red: 0.5458797216, green: 0.1337981224, blue: 0.4389412999, alpha: 1)
         
         if let tabBar = self.tabBarController?.tabBar {
@@ -47,10 +57,60 @@ class HomeVC_One: UIViewController {
             // Применяем стиль к TabBar
             tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = appearance
+            
+            view.addSubview(collectionView)
+            collectionView.dataSource = self
+            collectionView.delegate = self
+            
+            NSLayoutConstraint.activate([
+                collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
+                collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+            
+            let param = ["api_key": key,
+                         "format": "json",
+                         "method": "flickr.photos.search",
+                         "per_page": perPage,
+                         "text": text,
+                         "nojsoncallback": "1"]
+            
+            AF.request("https://api.flickr.com/services/rest/", parameters: param).responseJSON { (responseJSON) in
+                
+                // print(responseJSON.description)
+                
+                switch responseJSON.result {
+                case .success(let value):
+                    //                guard let photos = FlickrPhoto.getArray(from: value) else { return }
+                    //                self.flickrPhotoArray = photos
+                    
+                    guard
+                        let jsonContainer = value as? [String: Any],
+                        let jsonPhotos = jsonContainer["photos"] as? [String: Any],
+                        let jsonArray = jsonPhotos["photo"] as? [[String: Any]]
+                    else {
+                        return
+                    }
+                    let flickrPhotosObj = jsonArray.map {
+                        Class_Object_TBC_1(farm: $0["farm"] as! Int,
+                                           server: $0["server"] as! String,
+                                           photoID: $0["id"] as! String,
+                                           secret: $0["secret"] as! String)
+                    }
+                    
+                    self.photos.addObjects(from: flickrPhotosObj)
+                    print(self.photos)
+                    
+                    self.collectionView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+            }
         }
     }
     
-
+    
     
     @objc private func didTapButton() {
         let vc = HomeViewController()
@@ -58,57 +118,44 @@ class HomeVC_One: UIViewController {
         present(vc, animated: true)
     }
     
-    func setupCollectionView() {
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: view.frame.height), collectionViewLayout: createLayout())
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = #colorLiteral(red: 0.5458797216, green: 0.1337981224, blue: 0.4389412999, alpha: 1)
-        view.addSubview(collectionView)
-        
-        collectionView.register(CellsMemTB_1.self, forCellWithReuseIdentifier: CellsMemTB_1.identifier)
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-    }
-    
-    // MARK: - Setup Layout
-    
-    private func createLayout() -> UICollectionViewLayout {
-        // section -> groups -> items -> size
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .fractionalWidth(0.5))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
-        let spacing = CGFloat(20)
-        group.interItemSpacing = .fixed(spacing)
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = spacing
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: spacing, bottom: 0, trailing: spacing)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
-    }
-   
-    
-    
-}
-
-// MARK: - UICollectionViewDataSource, UICollectionViewDelegate
-extension HomeVC_One: UICollectionViewDataSource, UICollectionViewDelegate {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return models.count
+        return photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //let model = models[indexPath.row]
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellsMemTB_1.identifier, for: indexPath) as! CellsMemTB_1
-        cell.backgroundColor = .green
+        let imageURL = (photos.object(at: indexPath.row) as! Class_Object_TBC_1).url
+        
+        cell.request?.cancel()
+        cell.request = AF.download(imageURL).responseData(completionHandler: { (response) in
+            if let data = response.value {
+                let image = UIImage(data: data)
+                cell.imageViews.image = image
+            }
+        })
         
         return cell
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let padding: CGFloat = 10
+        let totalSpacing = (2 - 1) * padding + 20 // Отступы между ячейками и от краев
+        let width = (collectionView.frame.width - totalSpacing) / 2
+        return CGSize(width: width, height: 100)
+    }
 }
 
-
-
+// size sections
+extension HomeVC_One: UICollectionViewDelegateFlowLayout {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        sectionInsert.left
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsert
+    }
+    
+}
